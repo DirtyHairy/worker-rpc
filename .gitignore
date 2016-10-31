@@ -1,0 +1,5 @@
+lib
+node_modules
+test/*.js
+typings
+src/*.js
