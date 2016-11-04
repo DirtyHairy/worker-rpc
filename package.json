@@ -1,7 +1,7 @@
 {
   "name": "worker-rpc",
   "version": "0.1.0",
-  "description": "A simple RPC layer for communicating with web workers (and other things)",
+  "description": "A simple RPC layer for communicating with web workers and over other transports",
   "scripts": {
     "prepublish": "tsc",
     "pretest": "typings install && tsc -p tsconfig.test.json",
@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DirtyHairy/async-mutex"
+    "url": "https://github.com/DirtyHairy/worker-rpc"
   },
   "keywords": [
     "worker",

@@ -2,11 +2,11 @@ import {EventInterface} from 'microevent.ts';
 
 interface RpcProviderInterface {
 
-    dispatch(payload: any): void;
+    dispatch(message: any): void;
 
     rpc<T, U>(id: string, payload?: T, transfer?: Array<any>): Promise<U>;
 
-    signal<T>(id: string, payload?: T, transfer?: Array<any>): void;
+    signal<T>(id: string, payload?: T, transfer?: Array<any>): this;
 
     registerRpcHandler<T, U>(id: string, handler: RpcProviderInterface.RpcHandler<T, U>): this;
 

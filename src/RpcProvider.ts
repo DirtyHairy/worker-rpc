@@ -64,12 +64,14 @@ class RpcProvider implements RpcProviderInterface {
         );
     };
 
-    signal<T>(id: string, payload?: T, transfer?: any): void {
+    signal<T>(id: string, payload?: T, transfer?: any): this {
         this._dispatch({
             type: RpcProvider.MessageType.signal,
             id,
             payload,
         }, transfer ? transfer : undefined);
+
+        return this;
     }
 
     registerRpcHandler<T, U>(id: string, handler: RpcProviderInterface.RpcHandler<T, U>): this {
