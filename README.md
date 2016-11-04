@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/DirtyHairy/worker-rpc.svg?branch=master)](https://travis-ci.org/DirtyHairy/worker-rpc)
+
 # What is it?
 
 This package provides a simple RPC mechanism on top of any transport that transfers
