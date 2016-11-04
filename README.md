@@ -169,7 +169,7 @@ Returns the provider instance.
 
 The error event is dispatched if there is either a local or remote communcation
 error (timeout, invalid id, etc.). Checkout the
-[microevent.ts])(https://github.com/DirtyHairy/microevent)
+[microevent.ts](https://github.com/DirtyHairy/microevent)
 documentation for the event API.
 
 # License
