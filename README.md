@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/DirtyHairy/worker-rpc.svg?branch=master)](https://travis-ci.org/DirtyHairy/worker-rpc)
+[![npm version](https://badge.fury.io/js/worker-rpc.svg)](https://badge.fury.io/js/worker-rpc)
 
 # What is it?
 
