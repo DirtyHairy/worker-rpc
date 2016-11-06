@@ -139,6 +139,21 @@ suite('RPC provider', function() {
                 ));
         })
 
+        test('Promise rejection is transferred', function() {
+            remote.registerRpcHandler('action', () => new Promise((resolve, reject) => setTimeout(() => reject(10), 15)));
+
+            return local
+                .rpc('action')
+                .then(
+                    () => Promise.reject('should have been rejected'),
+                    result => (
+                        assert.strictEqual(result, 10),
+                        assert(!errorLocal),
+                        assert(!errorRemote)
+                    )
+                );
+        });
+
         test('Invalid RPC calls are rejected', function() {
             return local
                 .rpc('action')
