@@ -1,6 +1,6 @@
 {
   "name": "worker-rpc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple RPC layer for communicating with web workers and over other transports",
   "scripts": {
     "prepublish": "tsc",
@@ -18,13 +18,13 @@
     "rpc"
   ],
   "devDependencies": {
-    "mocha": "~3.1.0",
-    "typescript": "~2.0.3",
-    "typings": "~1.4.0"
+    "mocha": "~6.1.4",
+    "typescript": "~3.4.5",
+    "typings": "~2.1.1"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
-    "microevent.ts": "~0.1.0"
+    "microevent.ts": "~0.1.1"
   }
 }

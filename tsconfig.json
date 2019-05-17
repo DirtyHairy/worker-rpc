@@ -7,7 +7,8 @@
         "noImplicitThis": true,
         "declaration": true,
         "outDir": "lib",
-        "lib": ["es5", "es6", "dom"]
+        "lib": ["es5", "es6", "dom"],
+        "esModuleInterop": true
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules"]
