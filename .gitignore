@@ -3,3 +3,4 @@ node_modules
 test/*.js
 typings
 src/*.js
+yarn.lock

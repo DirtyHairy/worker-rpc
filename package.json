@@ -1,11 +1,10 @@
 {
   "name": "worker-rpc",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A simple RPC layer for communicating with web workers and over other transports",
   "scripts": {
     "prepublish": "tsc",
-    "pretest": "typings install && tsc -p tsconfig.test.json",
-    "test": "mocha -R spec -u tdd test"
+    "test": "mocha --require ts-node/register -R spec -u tdd 'test/**/*.ts'"
   },
   "author": "Christian Speckner <cnspeckn@googlemail.com> (https://github.com/DirtyHairy/)",
   "license": "MIT",
@@ -18,13 +17,20 @@
     "rpc"
   ],
   "devDependencies": {
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^12.0.2",
     "mocha": "~6.1.4",
-    "typescript": "~3.4.5",
-    "typings": "~2.1.1"
+    "ts-node": "^8.1.0",
+    "typescript": "~3.4.5"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
-    "microevent.ts": "~0.1.1"
-  }
+    "microevent.ts": "~0.2.1"
+  },
+  "files": [
+    "lib",
+    "READNE.md",
+    "CHANGELOG.md"
+  ]
 }

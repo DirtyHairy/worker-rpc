@@ -3,13 +3,21 @@
         "module": "commonjs",
         "target": "es5",
         "sourceMap": false,
-        "noImplicitAny": true,
-        "noImplicitThis": true,
         "declaration": true,
         "outDir": "lib",
         "lib": ["es5", "es6", "dom"],
-        "esModuleInterop": true
+        "esModuleInterop": true,
+
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "noUnusedLocals": true,
+        "noImplicitReturns": true,
+        "alwaysStrict": true,
     },
-    "include": ["src/**/*.ts"],
+    "include": ["src/**/*.ts", "test/**/*.ts"],
     "exclude": ["node_modules"]
 }

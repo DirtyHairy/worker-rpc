@@ -38,7 +38,7 @@ class RpcProvider implements RpcProviderInterface {
         }
     }
 
-    rpc<T, U>(id: string, payload?: T, transfer?: any): Promise<U> {
+    rpc<T = void, U = void>(id: string, payload?: T, transfer?: any): Promise<U> {
         const transactionId = this._nextTransactionId++;
 
         this._dispatch({
@@ -64,7 +64,7 @@ class RpcProvider implements RpcProviderInterface {
         );
     };
 
-    signal<T>(id: string, payload?: T, transfer?: any): this {
+    signal<T = void>(id: string, payload?: T, transfer?: any): this {
         this._dispatch({
             type: RpcProvider.MessageType.signal,
             id,
@@ -74,7 +74,7 @@ class RpcProvider implements RpcProviderInterface {
         return this;
     }
 
-    registerRpcHandler<T, U>(id: string, handler: RpcProviderInterface.RpcHandler<T, U>): this {
+    registerRpcHandler<T = void, U = void>(id: string, handler: RpcProviderInterface.RpcHandler<T, U>): this {
         if (this._rpcHandlers[id]) {
             throw new Error(`rpc handler for ${id} already registered`);
         }
@@ -84,7 +84,7 @@ class RpcProvider implements RpcProviderInterface {
         return this;
     };
 
-    registerSignalHandler<T>(id: string, handler: RpcProviderInterface.SignalHandler<T>): this {
+    registerSignalHandler<T = void>(id: string, handler: RpcProviderInterface.SignalHandler<T>): this {
         if (!this._signalHandlers[id]) {
             this._signalHandlers[id] = [];
         }
@@ -94,7 +94,7 @@ class RpcProvider implements RpcProviderInterface {
         return this;
     }
 
-    deregisterRpcHandler<T, U>(id: string, handler: RpcProviderInterface.RpcHandler<T, U>): this {
+    deregisterRpcHandler<T = void, U = void>(id: string, handler: RpcProviderInterface.RpcHandler<T, U>): this {
         if (this._rpcHandlers[id]) {
             delete this._rpcHandlers[id];
         }
@@ -102,7 +102,7 @@ class RpcProvider implements RpcProviderInterface {
         return this;
     };
 
-    deregisterSignalHandler<T>(id: string, handler: RpcProviderInterface.SignalHandler<T>): this {
+    deregisterSignalHandler<T = void>(id: string, handler: RpcProviderInterface.SignalHandler<T>): this {
         if (this._signalHandlers[id]) {
             this._signalHandlers[id] = this._signalHandlers[id].filter(h => handler !== h);
         }
@@ -151,19 +151,21 @@ class RpcProvider implements RpcProviderInterface {
     }
 
     private _handleInternal(message: RpcProvider.Message): void {
+        const transaction = typeof(message.transactionId) !== 'undefined' ? this._pendingTransactions[message.transactionId] : undefined;
+
         switch (message.id) {
             case MSG_RESOLVE_TRANSACTION:
-                if (!this._pendingTransactions[message.transactionId]) {
+                if (!transaction || typeof(message.transactionId) === 'undefined') {
                     return this._raiseError(`no pending transaction with id ${message.transactionId}`);
                 }
 
-                this._pendingTransactions[message.transactionId].resolve(message.payload);
+                transaction.resolve(message.payload);
                 this._clearTransaction(this._pendingTransactions[message.transactionId]);
 
                 break;
 
             case MSG_REJECT_TRANSACTION:
-                if (!this._pendingTransactions[message.transactionId]) {
+                if (!transaction || typeof(message.transactionId) === 'undefined') {
                     return this._raiseError(`no pending transaction with id ${message.transactionId}`);
                 }
 

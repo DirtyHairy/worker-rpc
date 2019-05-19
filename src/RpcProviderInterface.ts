@@ -4,17 +4,17 @@ interface RpcProviderInterface {
 
     dispatch(message: any): void;
 
-    rpc<T, U>(id: string, payload?: T, transfer?: Array<any>): Promise<U>;
+    rpc<T = void, U = void>(id: string, payload?: T, transfer?: Array<any>): Promise<U>;
 
-    signal<T>(id: string, payload?: T, transfer?: Array<any>): this;
+    signal<T = void>(id: string, payload?: T, transfer?: Array<any>): this;
 
-    registerRpcHandler<T, U>(id: string, handler: RpcProviderInterface.RpcHandler<T, U>): this;
+    registerRpcHandler<T = void, U = void>(id: string, handler: RpcProviderInterface.RpcHandler<T, U>): this;
 
-    registerSignalHandler<T>(id: string, handler: RpcProviderInterface.SignalHandler<T>): this;
+    registerSignalHandler<T = void>(id: string, handler: RpcProviderInterface.SignalHandler<T>): this;
 
-    deregisterRpcHandler<T, U>(id: string, handler: RpcProviderInterface.RpcHandler<T, U>): this;
+    deregisterRpcHandler<T = void, U = void>(id: string, handler: RpcProviderInterface.RpcHandler<T, U>): this;
 
-    deregisterSignalHandler<T>(id: string, handler: RpcProviderInterface.SignalHandler<T>): this;
+    deregisterSignalHandler<T = void>(id: string, handler: RpcProviderInterface.SignalHandler<T>): this;
 
     error: EventInterface<Error>;
 
@@ -22,12 +22,12 @@ interface RpcProviderInterface {
 
 module RpcProviderInterface {
 
-    export interface RpcHandler<T, U> {
-        (payload?: T): Promise<U>|U;
+    export interface RpcHandler<T = void, U = void> {
+        (payload: T): Promise<U>|U;
     }
 
-    export interface SignalHandler<T> {
-        (payload?: T): void;
+    export interface SignalHandler<T = void> {
+        (payload: T): void;
     }
 
 }

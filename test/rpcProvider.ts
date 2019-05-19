@@ -1,6 +1,4 @@
-/// <reference path="../typings/index.d.ts"/>
-
-import * as assert from 'assert';
+import assert from 'assert';
 
 import RpcProvider from '../src/RpcProvider';
 
@@ -8,17 +6,17 @@ suite('RPC provider', function() {
 
     let local: RpcProvider,
         remote: RpcProvider,
-        transferLocalToRemote: Array<any>,
-        transferRemoteToLocal: Array<any>,
-        errorLocal: Error,
-        errorRemote: Error;
-    
+        transferLocalToRemote: Array<any> | undefined,
+        transferRemoteToLocal: Array<any> | undefined,
+        errorLocal: Error | undefined,
+        errorRemote: Error | undefined;
+
     setup(function() {
         local = new RpcProvider(
             (message, transfer) => (transferLocalToRemote = transfer, remote.dispatch(message)),
             50
         );
-        
+
         local.error.addHandler(err => errorLocal = err);
 
         remote = new RpcProvider(
