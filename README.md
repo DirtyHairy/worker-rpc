@@ -119,7 +119,7 @@ Register a handler function for RPC calls with id `id`. Returns the provider ins
 
 ### Registering signal handlers
 
-    rpc.registerSignalHandler(id, handler));
+    rpc.registerSignalHandler(id, handler);
 
 Register a handler function for signals with id `id`. Returns the provider instance.
 
