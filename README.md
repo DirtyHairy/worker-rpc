@@ -15,7 +15,9 @@ different transport channels, i.e. `postMessage` between frames, websockets via
 
 You can install the library into your project via npm
 
-    npm install worker-rpc
+```bash
+npm install worker-rpc
+```
 
 The library is written in Typescript and will work in any environment that
 supports ES5 and ES6-style promises (either native or through a shim).
@@ -27,15 +29,17 @@ In this example, we use the library to set up communication with a web worker.
 
 ### Web worker
 
-    import {RpcProvider} from 'worker-rpc';
+```js
+import {RpcProvider} from 'worker-rpc';
 
-    const rpcProvider = new RpcProvider(
-        (message, transfer) => postMessage(message, transfer)
-    );
+const rpcProvider = new RpcProvider(
+    (message, transfer) => postMessage(message, transfer)
+);
 
-    onmessage = e => rpcProvider.dispatch(e.data);
+onmessage = e => rpcProvider.dispatch(e.data);
 
-    rpcProvider.registerRpcHandler('add', ({x, y}) => x + y);
+rpcProvider.registerRpcHandler('add', ({x, y}) => x + y);
+```
 
 The RPC provider is initialized with a function that dispatches a message.
 This function will receive an opaque message object as first argument, and
@@ -51,32 +55,40 @@ result either as an immediate value or as a promise.
 
 ### Page
 
-    import {RpcProvider} from 'worker-rpc';
+```js
+import {RpcProvider} from 'worker-rpc';
 
-    const worker = new Worker('worker.js'),
-        rpcProvider = new RpcProvider(
-            (message, transfer) => worker.postMessage(message, transfer)
-        );
-    
-    worker.onmessage = e => rpcProvider.dispatch(e.data);
+const worker = new Worker('worker.js'),
+    rpcProvider = new RpcProvider(
+        (message, transfer) => worker.postMessage(message, transfer)
+    );
 
-    rpcProvider
-        .rpc('add', {x: 1, y: 2})
-        .then(result => console.log(result)); // 3
+worker.onmessage = e => rpcProvider.dispatch(e.data);
+
+rpcProvider
+    .rpc('add', {x: 1, y: 2})
+    .then(result => console.log(result)); // 3
+```
 
 ## Importing
 
 ES5 / CommonJS
 
-    var RpcProvider = require('worker-rpc').RpcProvider;
+```js
+var RpcProvider = require('worker-rpc').RpcProvider;
+```
 
 ES6
 
-    import {RpcProvider} from 'worker-rpc';
+```js
+import {RpcProvider} from 'worker-rpc';
+```
 
 Typescript
 
-    import {RpcProvider, RpcProviderInterface} from 'worker-rpc';
+```ts
+import {RpcProvider, RpcProviderInterface} from 'worker-rpc';
+```
 
 ##  API
 
@@ -86,7 +98,9 @@ promises and can consume any A+ compliant promises.
 
 ### Creating a new provider
 
-    const rpc = new RpcProvider(dispatcher, timeout);
+```js
+const rpc = new RpcProvider(dispatcher, timeout);
+```
 
  * `dispatcher`: A function that will be called for dispatching messages. The
     first argument will be an opaque message object, and the second argument
@@ -97,7 +111,9 @@ promises and can consume any A+ compliant promises.
 
 ### Incoming messages
 
-    rpc.dispatch(message);
+```js
+rpc.dispatch(message);
+```
 
 Similar to message dispatch, `worker-rpc` does not provide a built-in mechanism
 for receiving messages. Instead, incoming messages must be relayed to the provider
@@ -107,7 +123,9 @@ by invoking `dispatch`.
 
 ### Registering RPC handlers
 
-    rpc.registerRpcHandler(id, handler);
+```js
+rpc.registerRpcHandler(id, handler);
+```
 
 Register a handler function for RPC calls with id `id`. Returns the provider instance.
 
@@ -119,7 +137,9 @@ Register a handler function for RPC calls with id `id`. Returns the provider ins
 
 ### Registering signal handlers
 
-    rpc.registerSignalHandler(id, handler);
+```js
+rpc.registerSignalHandler(id, handler);
+```
 
 Register a handler function for signals with id `id`. Returns the provider instance.
 
@@ -130,7 +150,9 @@ Register a handler function for signals with id `id`. Returns the provider insta
 
 ### Dispatching RPC calls
 
-    const result = rpc.rpc(id, payload, transfer);
+```js
+const result = rpc.rpc(id, payload, transfer);
+```
 
 Dispatch a RPC call and returns a promise for its result. The promise is rejected
 if the call times out or if no handler is registered (or if the handler rejects
@@ -143,7 +165,9 @@ the operation).
 
 ### Dispatching signals
 
-    rpc.signal(id, payload, transfer);
+```js
+rpc.signal(id, payload, transfer);
+```
 
 Dispatch a signal. Returns the provider instance.
 
@@ -154,21 +178,27 @@ Dispatch a signal. Returns the provider instance.
 
 ### Deregistering RPC handlers
 
-    rpc.deregisterRpcHandler(id, handler);
+```js
+rpc.deregisterRpcHandler(id, handler);
+```
 
 `id` and `handler` must be the same arguments used for `registerRpcHandler`.
 Returns the provider instance.
 
 ### Deregistering signal handlers
 
-    rpc.deregisterSignalHandler(id, handler);
+```js
+rpc.deregisterSignalHandler(id, handler);
+```
 
 `id` and `handler` must be the same arguments used for `registerSignalHandler`.
 Returns the provider instance.
 
 ### Errors
 
-    rpc.error.addHandler(errorHandler);
+```js
+rpc.error.addHandler(errorHandler);
+```
 
 The error event is dispatched if there is either a local or remote communcation
 error (timeout, invalid id, etc.). Checkout the
